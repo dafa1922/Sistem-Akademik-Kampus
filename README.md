@@ -29,5 +29,5 @@ Sistem Informasi Akademik berbasis Desktop yang dibangun menggunakan **Java Swin
   - `MySQL Connector Java` (Koneksi Database)
   - `iText PDF` (Untuk cetak laporan)
  
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Link Youtube
 https://youtu.be/1gFPDOEBSXY?si=k3el4DJiVFC_8z3I
