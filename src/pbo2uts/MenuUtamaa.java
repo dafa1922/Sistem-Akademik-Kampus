@@ -1,0 +1,641 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package pbo2uts;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.JPasswordField;
+import javax.swing.Timer;
+public class MenuUtamaa extends javax.swing.JFrame {
+
+    /**
+     * Creates new form MenuUtamaa
+     */
+    public MenuUtamaa() {
+        initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        cekHakAkses();
+        tampilkanProfil();
+        hitungData();      
+        setStyling();
+        tengahkanKomponen();
+        
+        dpUtama.addComponentListener(new java.awt.event.ComponentAdapter() {
+        @Override
+        public void componentResized(java.awt.event.ComponentEvent e) {
+            tengahkanDashboard();
+        }
+    });
+    }
+    private void tengahkanDashboard() {
+    // Ambil ukuran DesktopPane
+    int lebarDesktop = dpUtama.getWidth();
+    int tinggiDesktop = dpUtama.getHeight();
+    
+    // Ambil ukuran Panel Dashboard kamu
+    int lebarPanel = panelHeader.getWidth();
+    int tinggiPanel = panelHeader.getHeight();
+    
+    // Hitung titik tengah
+    int x = (lebarDesktop - lebarPanel) / 2;
+    int y = (tinggiDesktop - tinggiPanel) / 2;
+    
+    // Set lokasi baru
+   panelHeader.setLocation(x, y);
+}
+    // Fungsi buat nengahin panel/label secara manual
+private void tengahkanKomponen() {
+    // Misal semua label kamu masukin ke panel bernama 'panelDashboard'
+    int x = (dpUtama.getWidth() - panelHeader.getWidth()) / 2;
+    int y = (dpUtama.getHeight() - panelHeader.getHeight()) / 2;
+    panelHeader.setLocation(x, y);
+}
+    // Taruh kodingan ini di bawah initComponents();
+private void tampilkanProfil() {
+    // Ambil data dari class Session (Data ini diisi pas kamu login)
+    String nama = Session.getUsername();
+    String level = Session.getLevel();
+    
+    lblWelcome.setText("Selamat Datang, " + (nama != null ? nama.toUpperCase() : "USER"));
+    lblLevel.setText("Level Akses: " + (level != null ? level : "Guest"));
+
+    // Membuat Jam Real-time (Update tiap 1 detik)
+    new javax.swing.Timer(1000, e -> {
+        java.util.Date d = new java.util.Date();
+        java.text.SimpleDateFormat sJam = new java.text.SimpleDateFormat("HH:mm:ss");
+        java.text.SimpleDateFormat sTgl = new java.text.SimpleDateFormat("EEEE, dd MMMM yyyy");
+        
+        lblJam.setText(sJam.format(d));
+        lblTanggal.setText(sTgl.format(d));
+    }).start();
+}
+
+private void hitungData() {
+    try {
+        java.sql.Connection conn = koneksi.getKoneksi();
+        
+        // 1. Hitung Mahasiswa
+        java.sql.ResultSet rsMhs = conn.createStatement().executeQuery("SELECT COUNT(*) AS total FROM mahasiswa");
+        if(rsMhs.next()) lblTotalMhs.setText(rsMhs.getString("total"));
+        
+        // 2. Hitung Dosen
+        java.sql.ResultSet rsDosen = conn.createStatement().executeQuery("SELECT COUNT(*) AS total FROM dosen");
+        if(rsDosen.next()) lblTotalDosen.setText(rsDosen.getString("total"));
+        
+        // 3. Hitung Matakuliah
+        java.sql.ResultSet rsMK = conn.createStatement().executeQuery("SELECT COUNT(*) AS total FROM matakuliah");
+        if(rsMK.next()) lblTotalMK.setText(rsMK.getString("total"));
+        
+    } catch (Exception e) {
+        System.out.println("Gagal update statistik: " + e.getMessage());
+    }
+}
+private void setStyling() {
+    // Memberi gaya header pada teks Welcome
+    lblWelcome.putClientProperty("FlatLaf.style", "font: semibold +6");
+    lblLevel.putClientProperty("FlatLaf.style", "font: -1; foreground: #BBBBBB");
+    
+    // Memberi warna dan ukuran besar pada angka statistik
+    // Warna #00ADB5 itu biru toska keren buat tema gelap
+    lblTotalMhs.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #00ADB5");
+    lblTotalDosen.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #FFD369");
+    lblTotalMK.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #EEEEEE");
+}
+  
+    private void cekHakAkses() {
+    String role = Session.getLevel(); // Ambil dari class Session
+    
+    if (role.equals("Admin")) {
+        jMenuItem7.setEnabled(true);
+        jMenuItem8.setEnabled(true);
+        // Admin bisa akses Master, tapi Transaksi non-aktif (sesuai requestmu)
+        jMenu1.setEnabled(true);
+        jMenu2.setEnabled(false);
+    } else {
+        jMenuItem7.setEnabled(false); // Operator dilarang nambah user
+        jMenuItem8.setEnabled(true);
+        // Operator akses Transaksi, Master non-aktif
+        jMenu1.setEnabled(false);
+        jMenu2.setEnabled(true);
+    }
+}
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jMenuItem1 = new javax.swing.JMenuItem();
+        dpUtama = new javax.swing.JDesktopPane();
+        panelHeader = new javax.swing.JPanel();
+        lblWelcome = new javax.swing.JLabel();
+        lblLevel = new javax.swing.JLabel();
+        lblJam = new javax.swing.JLabel();
+        lblTanggal = new javax.swing.JLabel();
+        lblTotalMhs = new javax.swing.JLabel();
+        lblTotalDosen = new javax.swing.JLabel();
+        lblTotalMK = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem11 = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        dpUtama.setBackground(new java.awt.Color(51, 51, 51));
+        dpUtama.setForeground(new java.awt.Color(242, 242, 242));
+        dpUtama.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                dpUtamaComponentResized(evt);
+            }
+        });
+
+        panelHeader.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblWelcome.setText("label");
+
+        lblLevel.setText("label");
+
+        lblJam.setText("jLabel1");
+
+        lblTanggal.setText("jLabel1");
+
+        lblTotalMhs.setText("0");
+
+        lblTotalDosen.setText("0");
+
+        lblTotalMK.setText("0");
+
+        jLabel1.setText("Total Mahasiswa");
+
+        jLabel2.setText("Total Dosen");
+
+        jLabel3.setText("Total Mata Kuliah");
+
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(234, 234, 234)
+                .addComponent(lblJam))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(lblWelcome))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addComponent(lblLevel))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(lblTotalMhs, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel1))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(lblTotalDosen, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel2))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(lblTotalMK, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jLabel3))
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(lblTanggal))
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lblJam)
+                .addGap(34, 34, 34)
+                .addComponent(lblWelcome)
+                .addGap(12, 12, 12)
+                .addComponent(lblLevel)
+                .addGap(40, 40, 40)
+                .addComponent(lblTotalMhs, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(lblTotalDosen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(6, 6, 6)
+                .addComponent(lblTotalMK, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel3)
+                .addGap(19, 19, 19)
+                .addComponent(lblTanggal))
+        );
+
+        dpUtama.setLayer(panelHeader, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout dpUtamaLayout = new javax.swing.GroupLayout(dpUtama);
+        dpUtama.setLayout(dpUtamaLayout);
+        dpUtamaLayout.setHorizontalGroup(
+            dpUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dpUtamaLayout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(352, Short.MAX_VALUE))
+        );
+        dpUtamaLayout.setVerticalGroup(
+            dpUtamaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dpUtamaLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(230, Short.MAX_VALUE))
+        );
+
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Opened Folder.png"))); // NOI18N
+        jMenu1.setText("File Master");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Robot.png"))); // NOI18N
+        jMenuItem2.setText("Mahasiswa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Spiral Bound Booklet.png"))); // NOI18N
+        jMenuItem3.setText("Mata Kuliah");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Contacts.png"))); // NOI18N
+        jMenuItem4.setText("Dosen");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Transaction List.png"))); // NOI18N
+        jMenu2.setText("Transaction");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Carrd.png"))); // NOI18N
+        jMenuItem5.setText("KRS");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Purchase Order.png"))); // NOI18N
+        jMenuItem6.setText("Nilai");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Big Data.png"))); // NOI18N
+        jMenuItem9.setText("Data KRS");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Big Data.png"))); // NOI18N
+        jMenuItem10.setText("Data Nilai");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem10);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Settings.png"))); // NOI18N
+        jMenu3.setText("Settings");
+
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Person.png"))); // NOI18N
+        jMenuItem7.setText("Add User");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Password.png"))); // NOI18N
+        jMenuItem8.setText("Change Password");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pbo2uts/Asset/Bot.png"))); // NOI18N
+        jMenuItem11.setText("Logout");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem11);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dpUtama)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dpUtama)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+panelHeader.setVisible(false); 
+
+    FormMahasiswa mhs = new FormMahasiswa();
+    dpUtama.add(mhs);
+    
+    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
+    mhs.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
+            panelHeader.setVisible(true);
+            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+        }
+    });
+
+    mhs.setBounds(0, 0, dpUtama.getWidth(), dpUtama.getHeight());
+    mhs.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+panelHeader.setVisible(false); 
+
+    FormMatakuliah matkul = new FormMatakuliah();
+    dpUtama.add(matkul);
+    
+    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
+    matkul.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
+            panelHeader.setVisible(true);
+            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+        }
+    });
+
+    matkul.setBounds(0, 0, dpUtama.getWidth(), dpUtama.getHeight());
+    matkul.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+panelHeader.setVisible(false); 
+
+    FormDosen dosen = new FormDosen();
+    dpUtama.add(dosen);
+    
+    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
+    dosen.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
+        @Override
+        public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
+            panelHeader.setVisible(true);
+            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+        }
+    });
+
+    dosen.setBounds(0, 0, dpUtama.getWidth(), dpUtama.getHeight());
+    dosen.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+FormKRS krs = new FormKRS();
+    
+    // 2. Memasukkannya ke dalam JDesktopPane (dpUtama)
+    dpUtama.add(krs); 
+    
+    // 3. Menampilkan formnya
+    krs.setVisible(true);
+    
+    // 4. Agar form muncul di posisi paling depan
+    try {
+        krs.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+        System.err.println(e.getMessage());
+    }      // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+FormDataKRS riwayat = new FormDataKRS();
+    dpUtama.add(riwayat); // Sesuaikan dengan nama JDesktopPane kamu
+    riwayat.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+// 1. Buat objek dari FormNilai
+    FormNilai nilai = new FormNilai();
+    
+    // 2. Masukkan ke dalam Desktop Pane di Menu Utama
+    // Pastikan "dpUtama" adalah nama variabel JDesktopPane kamu
+    dpUtama.add(nilai); 
+    
+    // 3. Tampilkan formnya
+    nilai.setVisible(true);
+    
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+boolean isFound = false;
+    for (javax.swing.JInternalFrame frame : dpUtama.getAllFrames()) {
+        if (frame instanceof FormDataNilai) {
+            frame.moveToFront(); // Kalau ada, bawa ke depan
+            try {
+                frame.setSelected(true); // Langsung difokuskan
+            } catch (java.beans.PropertyVetoException e) {}
+            isFound = true;
+            break;
+        }
+    }
+
+    // 2. Jika belum terbuka, baru buat objek baru
+    if (!isFound) {
+        FormDataNilai dataNilai = new FormDataNilai();
+        dpUtama.add(dataNilai); // Masukkan ke DesktopPane
+        dataNilai.setVisible(true);
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+FormAddUser user = new FormAddUser();
+    
+    // 2. Memasukkannya ke dalam JDesktopPane (dpUtama)
+    dpUtama.add(user); 
+    
+    // 3. Menampilkan formnya
+    user.setVisible(true);
+    
+    // 4. Agar form muncul di posisi paling depan
+    try {
+        user.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+        System.err.println(e.getMessage());
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+FormChangePassword password = new FormChangePassword();
+    
+    // 2. Memasukkannya ke dalam JDesktopPane (dpUtama)
+    dpUtama.add(password); 
+    
+    // 3. Menampilkan formnya
+    password.setVisible(true);
+    
+    // 4. Agar form muncul di posisi paling depan
+    try {
+        password.setSelected(true);
+    } catch (java.beans.PropertyVetoException e) {
+        System.err.println(e.getMessage());
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+// 1. Munculkan dialog konfirmasi yang cantik
+    int dialogBtn = javax.swing.JOptionPane.YES_NO_OPTION;
+    int dialogResult = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Apakah Anda yakin ingin keluar dari sistem?", 
+            "Konfirmasi Keluar", 
+            dialogBtn, 
+            javax.swing.JOptionPane.QUESTION_MESSAGE);
+
+    // 2. Jika user menekan tombol YES
+    if (dialogResult == javax.swing.JOptionPane.YES_OPTION) {
+        
+        // 3. Bersihkan data Session (Wajib buat keamanan!)
+        Session.setUsername(null);
+        Session.setLevel(null);
+
+        // 4. Buka kembali Form Login
+        FormLogin login = new FormLogin();
+        login.setVisible(true);
+        
+        // 5. Tutup Menu Utama
+        this.dispose();
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void dpUtamaComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_dpUtamaComponentResized
+tengahkanDashboard();        // TODO add your handling code here:
+    }//GEN-LAST:event_dpUtamaComponentResized
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+       try {
+
+    UIManager.setLookAndFeel( new FlatMacDarkLaf() );
+    //UIManager.put( "Button.arc", 20 );
+    //UIManager.put( "Component.arc", 20 );
+    
+    
+} catch( Exception ex ) {
+    System.err.println( "Failed to initialize LaF" );
+}
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuUtamaa().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane dpUtama;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JLabel lblJam;
+    private javax.swing.JLabel lblLevel;
+    private javax.swing.JLabel lblTanggal;
+    private javax.swing.JLabel lblTotalDosen;
+    private javax.swing.JLabel lblTotalMK;
+    private javax.swing.JLabel lblTotalMhs;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JPanel panelHeader;
+    // End of variables declaration//GEN-END:variables
+}
