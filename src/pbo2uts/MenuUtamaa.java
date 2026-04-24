@@ -38,7 +38,7 @@ public class MenuUtamaa extends javax.swing.JFrame {
     int lebarDesktop = dpUtama.getWidth();
     int tinggiDesktop = dpUtama.getHeight();
     
-    // Ambil ukuran Panel Dashboard kamu
+    // Ambil ukuran Panel Dashboard 
     int lebarPanel = panelHeader.getWidth();
     int tinggiPanel = panelHeader.getHeight();
     
@@ -51,14 +51,14 @@ public class MenuUtamaa extends javax.swing.JFrame {
 }
     // Fungsi buat nengahin panel/label secara manual
 private void tengahkanKomponen() {
-    // Misal semua label kamu masukin ke panel bernama 'panelDashboard'
+   
     int x = (dpUtama.getWidth() - panelHeader.getWidth()) / 2;
     int y = (dpUtama.getHeight() - panelHeader.getHeight()) / 2;
     panelHeader.setLocation(x, y);
 }
-    // Taruh kodingan ini di bawah initComponents();
+   
 private void tampilkanProfil() {
-    // Ambil data dari class Session (Data ini diisi pas kamu login)
+   
     String nama = Session.getUsername();
     String level = Session.getLevel();
     
@@ -102,7 +102,7 @@ private void setStyling() {
     lblLevel.putClientProperty("FlatLaf.style", "font: -1; foreground: #BBBBBB");
     
     // Memberi warna dan ukuran besar pada angka statistik
-    // Warna #00ADB5 itu biru toska keren buat tema gelap
+   
     lblTotalMhs.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #00ADB5");
     lblTotalDosen.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #FFD369");
     lblTotalMK.putClientProperty("FlatLaf.style", "font: bold +24; foreground: #EEEEEE");
@@ -114,7 +114,7 @@ private void setStyling() {
     if (role.equals("Admin")) {
         jMenuItem7.setEnabled(true);
         jMenuItem8.setEnabled(true);
-        // Admin bisa akses Master, tapi Transaksi non-aktif (sesuai requestmu)
+        // Admin bisa akses Master, tapi Transaksi non-aktif 
         jMenu1.setEnabled(true);
         jMenu2.setEnabled(false);
     } else {
@@ -407,12 +407,12 @@ panelHeader.setVisible(false);
     FormMahasiswa mhs = new FormMahasiswa();
     dpUtama.add(mhs);
     
-    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
+    
     mhs.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
         @Override
         public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
             panelHeader.setVisible(true);
-            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+            tengahkanDashboard(); 
         }
     });
 
@@ -427,12 +427,11 @@ panelHeader.setVisible(false);
     FormMatakuliah matkul = new FormMatakuliah();
     dpUtama.add(matkul);
     
-    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
     matkul.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
         @Override
         public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
             panelHeader.setVisible(true);
-            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+            tengahkanDashboard(); 
         }
     });
 
@@ -447,12 +446,11 @@ panelHeader.setVisible(false);
     FormDosen dosen = new FormDosen();
     dpUtama.add(dosen);
     
-    // Pasang listener: Kalau form mahasiswa ditutup, dashboard muncul lagi
     dosen.addInternalFrameListener(new javax.swing.event.InternalFrameAdapter() {
         @Override
         public void internalFrameClosed(javax.swing.event.InternalFrameEvent e) {
             panelHeader.setVisible(true);
-            tengahkanDashboard(); // Sekalian nengahin lagi biar aman
+            tengahkanDashboard(); 
         }
     });
 
@@ -464,7 +462,7 @@ panelHeader.setVisible(false);
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
 FormKRS krs = new FormKRS();
     
-    // 2. Memasukkannya ke dalam JDesktopPane (dpUtama)
+   
     dpUtama.add(krs); 
     
     // 3. Menampilkan formnya
@@ -480,7 +478,7 @@ FormKRS krs = new FormKRS();
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 FormDataKRS riwayat = new FormDataKRS();
-    dpUtama.add(riwayat); // Sesuaikan dengan nama JDesktopPane kamu
+    dpUtama.add(riwayat); 
     riwayat.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
@@ -489,8 +487,7 @@ FormDataKRS riwayat = new FormDataKRS();
 // 1. Buat objek dari FormNilai
     FormNilai nilai = new FormNilai();
     
-    // 2. Masukkan ke dalam Desktop Pane di Menu Utama
-    // Pastikan "dpUtama" adalah nama variabel JDesktopPane kamu
+   
     dpUtama.add(nilai); 
     
     // 3. Tampilkan formnya
@@ -503,9 +500,9 @@ FormDataKRS riwayat = new FormDataKRS();
 boolean isFound = false;
     for (javax.swing.JInternalFrame frame : dpUtama.getAllFrames()) {
         if (frame instanceof FormDataNilai) {
-            frame.moveToFront(); // Kalau ada, bawa ke depan
+            frame.moveToFront(); // 
             try {
-                frame.setSelected(true); // Langsung difokuskan
+                frame.setSelected(true); 
             } catch (java.beans.PropertyVetoException e) {}
             isFound = true;
             break;
@@ -515,7 +512,7 @@ boolean isFound = false;
     // 2. Jika belum terbuka, baru buat objek baru
     if (!isFound) {
         FormDataNilai dataNilai = new FormDataNilai();
-        dpUtama.add(dataNilai); // Masukkan ke DesktopPane
+        dpUtama.add(dataNilai); 
         dataNilai.setVisible(true);
     }
         // TODO add your handling code here:
@@ -569,7 +566,7 @@ FormChangePassword password = new FormChangePassword();
     // 2. Jika user menekan tombol YES
     if (dialogResult == javax.swing.JOptionPane.YES_OPTION) {
         
-        // 3. Bersihkan data Session (Wajib buat keamanan!)
+        // 3. Bersihkan data Session 
         Session.setUsername(null);
         Session.setLevel(null);
 

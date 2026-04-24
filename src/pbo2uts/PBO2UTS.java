@@ -14,10 +14,10 @@ public class PBO2UTS {
      */
     public static void main(String[] args) {
         try {
-            // 1. Pasang tema di sini (Pintu masuk utama aplikasi)
+            // 1. Pasang tema di sini 
             UIManager.setLookAndFeel(new FlatMacDarkLaf());
             
-            // Tambahan opsional biar makin cakep
+       
             UIManager.put("Button.arc", 20);
             UIManager.put("Component.arc", 20);
             

@@ -28,7 +28,7 @@ public class FormDataNilai extends javax.swing.JInternalFrame {
     private void loadData() {
     DefaultTableModel model = new DefaultTableModel();
     model.addColumn("No");
-    model.addColumn("NIM"); // Tambahkan kolom NIM agar tahu ini nilai siapa
+    model.addColumn("NIM"); 
     model.addColumn("Mata Kuliah");
     model.addColumn("Score");
     model.addColumn("Grade");
@@ -48,7 +48,7 @@ public class FormDataNilai extends javax.swing.JInternalFrame {
                 rs.getString("grade")
             });
         }
-        tblNilai.setModel(model); // Sesuaikan nama variabel tabelmu
+        tblNilai.setModel(model); 
     } catch (Exception e) {
         System.err.println("Gagal load data: " + e.getMessage());
     }

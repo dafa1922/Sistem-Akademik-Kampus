@@ -453,12 +453,10 @@ private void isiComboMk() {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
 try {
-        // 1. Ambil nilai SKS dari field (misal txtSksMk atau cbSks)
-        // Kita asumsikan kamu sudah mengganti ke JTextField seperti saran sebelumnya
+       
         int sksBaru = Integer.parseInt(txtSksMk.getText()); 
         
-        // 2. Ambil total SKS yang sudah ada di label/text Jumlah SKS saat ini
-        // Jika txtSks masih kosong, anggap 0
+       
         int sksSekarang = 0;
         if (!txtSks.getText().isEmpty()) {
             sksSekarang = Integer.parseInt(txtSks.getText());
@@ -493,7 +491,7 @@ for (int i = 0; i < tblKrs.getRowCount(); i++) {
 }
         model.addRow(new Object[]{no, nim, kode, matkul, sem, sks});
         
-        // 5. Update total (fungsi hitungTotal yang sudah kamu buat sebelumnya)
+      
         hitungTotal();
         
     } catch (Exception e) {

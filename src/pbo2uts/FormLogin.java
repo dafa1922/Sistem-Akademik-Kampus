@@ -29,9 +29,7 @@ public class FormLogin extends javax.swing.JFrame {
         Txtusername.putClientProperty("JTextField.showClearButton", true);
         jpw.putClientProperty("JTextField.placeholderText", "Masukkan Password");
         jpw.putClientProperty("JTextField.showClearButton", true);
-        //jpw.putClientProperty("JPasswordField.showRevealButton", true);
-        //jpw.putClientProperty("JPasswordField.revealIcon", "eye");
-    
+       
     
 
     jlogin.putClientProperty("FlatLaf.style", "pressedBackground: #38b6ff; foreground: #ffffff");
@@ -149,10 +147,10 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void checkShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkShowActionPerformed
      if (checkShow.isSelected()) {
-        // Menampilkan password (karakter 0 berarti teks asli)
+        
         jpw.setEchoChar((char)0);
     } else {
-        // Menyembunyikan kembali (menggunakan karakter bintang atau titik)
+       
         jpw.setEchoChar('•'); 
     }
         // TODO add your handling code here:
@@ -183,8 +181,7 @@ String user = Txtusername.getText();
         if (rs.next()) {
             // --- LOGIN BERHASIL ---
             
-            // 4. TITIP DATA KE SESSION (Sangat Penting untuk Hak Akses)
-            // Pastikan kolom di database namanya 'username' dan 'level'
+            
             Session.setUsername(rs.getString("username"));
             Session.setLevel(rs.getString("level"));
 

@@ -99,7 +99,7 @@ public class FormChangePassword extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBaruActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-// 1. Ambil teks dari field (Cukup sekali saja di awal)
+
     String passLama = txtPwLama.getText();
     String passBaru = txtBaru.getText();
     String konfirmasi = txtPwBaru.getText();

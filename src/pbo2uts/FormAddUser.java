@@ -15,7 +15,7 @@ public class FormAddUser extends javax.swing.JInternalFrame {
      */
     public FormAddUser() {
         initComponents();
-        cbLevel.removeAllItems(); // Hapus item default dulu
+        cbLevel.removeAllItems(); 
     cbLevel.addItem("- Pilih Role -");
     cbLevel.addItem("Admin");
     cbLevel.addItem("Operator");
@@ -122,7 +122,7 @@ try {
         
         pst.setString(1, txtUsername.getText());
         pst.setString(2, txtPassword.getText());
-        pst.setString(3, cbLevel.getSelectedItem().toString()); // Pake ComboBox biar rapi
+        pst.setString(3, cbLevel.getSelectedItem().toString()); 
         
         pst.executeUpdate();
         javax.swing.JOptionPane.showMessageDialog(this, "User Berhasil Ditambahkan!");

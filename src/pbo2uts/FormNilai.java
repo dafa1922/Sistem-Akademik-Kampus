@@ -297,7 +297,7 @@ try {
     String matkulFull = cbMatkul.getSelectedItem().toString();
     String namaMk = matkulFull.split(" - ")[1]; 
 
-    // --- JURUS ANTI DUPLIKAT ---
+    
     for (int i = 0; i < tblNilai.getRowCount(); i++) {
         String nimDiTabel = tblNilai.getValueAt(i, 0).toString();
         String matkulDiTabel = tblNilai.getValueAt(i, 1).toString();
@@ -334,8 +334,7 @@ try {
         grade
     });
     
-    // 4. JURUS RESET (NIM TETEP NEMPEL)
-    // cbNim.setSelectedIndex(0); // <--- BARIS INI DIMATIKAN BIAR NIM GAK CLEAR
+  
     
     cbMatkul.setSelectedIndex(0); // Cuma Matkul yang balik ke awal
     txtUts.setText("");
@@ -343,7 +342,7 @@ try {
     txtTugas.setText("");
     txtAbsensi.setText("");
     
-    // Balikin kursor ke Matkul biar cepet buat input MK selanjutnya
+    
     cbMatkul.requestFocus();
     
     javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
@@ -383,7 +382,7 @@ if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
                 
                 cbMatkul.removeAllItems();
                 while (rs.next()) {
-                    // Kita simpan format "KODE - NAMA" agar mudah dipisah nanti
+                    //  simpan format "KODE - NAMA" 
                     cbMatkul.addItem(rs.getString("kode_mk") + " - " + rs.getString("nama_mk"));
                 }
             } catch (Exception e) {
@@ -438,7 +437,7 @@ DefaultTableModel model = (DefaultTableModel) tblNilai.getModel();
     int barisTerpilih = tblNilai.getSelectedRow();
 
     if (barisTerpilih != -1) {
-        // Konfirmasi sebelum hapus (opsional tapi bagus)
+        // Konfirmasi sebelum hapus 
         int konfirmasi = JOptionPane.showConfirmDialog(this, 
                 "Hapus baris terpilih dari daftar?", "Konfirmasi", 
                 JOptionPane.YES_NO_OPTION);

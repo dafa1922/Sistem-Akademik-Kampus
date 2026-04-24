@@ -25,10 +25,10 @@ public class FormMahasiswa extends javax.swing.JInternalFrame {
         loadData();
     }
     private void loadData() {
-    // 1. Ambil model dari jTable kamu (pastikan nama variabel tabelnya benar)
+   
     DefaultTableModel model = (DefaultTableModel) tblMhs.getModel();
     
-    // 2. Bersihkan tabel agar tidak terjadi penumpukan data saat refresh
+  
     model.setRowCount(0);
     
     try {
@@ -57,8 +57,8 @@ public class FormMahasiswa extends javax.swing.JInternalFrame {
     txtNama.setText("");
     txtNim.setText("");
     txtAlamat.setText("");
-    txtNim.setEditable(true); // Pastikan NIM bisa diisi lagi untuk input baru
-    txtNama.requestFocus();   // Cursor otomatis balik ke Nama // Aktifkan kembali NIM untuk input baru
+    txtNim.setEditable(true); 
+    txtNama.requestFocus();   
     
 }
 
@@ -279,12 +279,12 @@ String keyword = JOptionPane.showInputDialog(this, "Masukkan Nama atau NIM yang 
     private void tblMhsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMhsMouseClicked
 int baris = tblMhs.getSelectedRow();
     
-    // Index 0 = Nama, 1 = NIM, 2 = Alamat (sesuaikan urutan kolom tabelmu)
+    
     txtNama.setText(tblMhs.getValueAt(baris, 0).toString());
     txtNim.setText(tblMhs.getValueAt(baris, 1).toString());
     txtAlamat.setText(tblMhs.getValueAt(baris, 2).toString());
     
-    // Kunci txtNim agar tidak bisa diubah karena NIM adalah Primary Key
+    
     txtNim.setEditable(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_tblMhsMouseClicked
@@ -339,7 +339,7 @@ try {
             // 2. Panggil koneksi
             java.sql.Connection conn = koneksi.getKoneksi();
             
-            // 3. Siapkan query SQL (Urutan: nama, nim, alamat sesuai tabel DB)
+            
             String sql = "INSERT INTO mahasiswa (nama, nim, alamat) VALUES (?, ?, ?)";
             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
             

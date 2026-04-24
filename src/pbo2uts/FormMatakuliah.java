@@ -286,7 +286,6 @@ public class FormMatakuliah extends javax.swing.JInternalFrame {
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
 try {
     java.sql.Connection conn = koneksi.getKoneksi();
-    // PERBAIKAN: Tanda tanya harus berjumlah 5 sesuai jumlah kolom
     String sql = "INSERT INTO matakuliah (kode_mk, nama_mk, sks, semester, nama_dosen) VALUES (?, ?, ?, ?, ?)";
     java.sql.PreparedStatement pst = conn.prepareStatement(sql);
     
@@ -308,7 +307,6 @@ try {
     loadData(); 
     resetForm(); 
 } catch (Exception e) {
-    // Kalau tadi kamu jalankan yang 4 tanda tanya, harusnya muncul error "Parameter index out of range"
     javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
 }
         // TODO add your handling code here:
@@ -417,7 +415,7 @@ int baris = tblMk.getSelectedRow();
     txtSks.setText(tblMk.getValueAt(baris, 2).toString());
     txtSemester.setText(tblMk.getValueAt(baris, 3).toString());
     
-    // Kunci Kode Matkul agar tidak diubah (Primary Key)
+    
     txtKode.setEditable(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_tblMkMouseClicked
